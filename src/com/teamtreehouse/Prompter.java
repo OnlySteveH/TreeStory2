@@ -33,7 +33,7 @@ public class Prompter {
     }
 
     public String createStory(){
-        System.out.println("Enter the story");
+        System.out.printf("Enter the story: %n");
         String line = null;
         try {
             line = mReader.readLine();
@@ -43,7 +43,7 @@ public class Prompter {
         return line;
     }
 
-    public String run(Template tmpl) {
+    public void run(Template tmpl) {
         List<String> results = null;
         try {
             results = promptForWords(tmpl);
@@ -52,8 +52,8 @@ public class Prompter {
             e.printStackTrace();
             System.exit(0);
         }
-        // TODO:csd - Print out the results that were gathered here by rendering the template
-        return tmpl.render(results);
+
+        System.out.printf("Your TreeStory:%n%n%s", tmpl.render(results));
     }
 
     /**
@@ -80,14 +80,14 @@ public class Prompter {
      * @return What the user responded
      */
     public String promptForWord(String phrase) throws IOException {
-        // TODO:csd - Prompt the user for the response to the phrase, make sure the word is censored, loop until you get a good response.
+
         boolean valid = true;
         String answer = "";
         while(valid){
             System.out.printf("Enter a %s: ", phrase);
             answer = mReader.readLine();
             if(mCensoredWords.contains(answer)) {
-                System.out.printf("%s is a censored word; try again: ", phrase);
+                System.out.printf("%s is a censored word; try again. ", answer);
             } else {
                 valid = false;
             }
